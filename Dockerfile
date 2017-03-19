@@ -6,9 +6,9 @@ RUN mkdir /build
 ENV CARGO_TARGET_DIR /build
 ENV CARGO_HOME /build/cache
 
-ADD https://github.com/plietar/librespot/archive/master.zip /
-RUN unzip /master.zip && rm /master.zip
-WORKDIR /librespot-master
+ADD https://github.com/awmath/librespot/archive/crypto-fork.zip /
+RUN unzip /crypto-fork.zip && rm /crypto-fork.zip
+WORKDIR /librespot-crypto-fork
 
 # build only stdout backend
 RUN cargo build --jobs $(grep -c ^processor /proc/cpuinfo) --release --no-default-features
@@ -21,7 +21,7 @@ RUN dnf clean all
 
 WORKDIR /
 RUN rm -rf /build
-RUN rm -rf /librespot-master
+RUN rm -rf /librespot-crypto-fork
 
 COPY entrypoint.sh /
 RUN chmod +x entrypoint.sh
