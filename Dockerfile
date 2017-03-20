@@ -4,7 +4,8 @@ ENV CARGO_TARGET_DIR /build
 ENV CARGO_HOME /build/cache
 
 # build only stdout backend
-RUN wget https://github.com/awmath/librespot/archive/crypto-fork.zip && unzip /crypto-fork.zip && rm /crypto-fork.zip && \
+ADD https://github.com/awmath/librespot/archive/crypto-fork.zip /
+RUN unzip /crypto-fork.zip && rm /crypto-fork.zip && \
     dnf update -y && dnf install -y cargo unzip && \
     cd /librespot-crypto-fork && mkdir /build && \
     cargo build --jobs $(grep -c ^processor /proc/cpuinfo) --release --no-default-features && \
